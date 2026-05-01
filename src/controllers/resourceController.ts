@@ -1,38 +1,23 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import * as service from '../services/resourceService';
+import { AuthRequest } from '../middleware/authMiddleware';
 
-export const getResources = async (req: Request, res: Response) => {
-  try {
-    const data = await service.getAll();
-    res.json(data);
-  } catch {
-    res.status(500).json({ message: 'Error fetching resources' });
-  }
+export const getResources = async (req: AuthRequest, res: Response) => {
+  const data = await service.getAll(req.userId!);
+  res.json(data);
 };
 
-export const createResource = async (req: Request, res: Response) => {
-  try {
-    const newItem = await service.create(req.body);
-    res.status(201).json(newItem);
-  } catch {
-    res.status(500).json({ message: 'Error creating resource' });
-  }
+export const createResource = async (req: AuthRequest, res: Response) => {
+  const newItem = await service.create(req.body, req.userId!);
+  res.status(201).json(newItem);
 };
 
-export const updateResource = async (req: Request, res: Response) => {
-  try {
-    const updated = await service.update(Number(req.params.id), req.body);
-    res.json(updated);
-  } catch {
-    res.status(500).json({ message: 'Error updating resource' });
-  }
+export const updateResource = async (req: AuthRequest, res: Response) => {
+  await service.update(Number(req.params.id), req.body, req.userId!);
+  res.json({ message: 'Updated' });
 };
 
-export const deleteResource = async (req: Request, res: Response) => {
-  try {
-    const deleted = await service.remove(Number(req.params.id));
-    res.json(deleted);
-  } catch {
-    res.status(500).json({ message: 'Error deleting resource' });
-  }
+export const deleteResource = async (req: AuthRequest, res: Response) => {
+  await service.remove(Number(req.params.id), req.userId!);
+  res.json({ message: 'Deleted' });
 };

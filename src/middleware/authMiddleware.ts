@@ -1,22 +1,45 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const SECRET = 'supersecret';
+export interface AuthRequest extends Request {
+  userId?: number;
+}
 
-export const protect = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({ error: 'No token' });
-  }
-
+export const protect = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const token = authHeader.split(' ')[1];
-    const decoded = jwt.verify(token, SECRET) as { userId: number };
+    const auth = req.headers.authorization;
 
-    (req as any).user = decoded;
+    console.log('AUTH HEADER:', auth);
+
+    if (!auth) {
+      return res.status(401).json({ error: 'No token' });
+    }
+
+    const token = auth.split(' ')[1];
+
+    console.log('TOKEN:', token);
+
+    console.log('JWT_SECRET:', process.env.JWT_SECRET);
+
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    ) as any;
+
+    console.log('DECODED:', decoded);
+
+    req.userId = decoded.userId;
+
     next();
-  } catch {
-    return res.status(401).json({ error: 'Invalid token' });
+  } catch (error) {
+    console.log('JWT ERROR:', error);
+
+    return res.status(401).json({
+      error: 'Invalid token',
+    });
   }
 };

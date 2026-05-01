@@ -9,9 +9,11 @@ import { protect } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.get('/', protect, getResources);
-router.post('/', protect, createResource);
-router.put('/:id', protect, updateResource);
-router.delete('/:id', protect, deleteResource);
+router.use(protect);
+
+router.get('/', getResources);
+router.post('/', createResource);
+router.put('/:id', updateResource);
+router.delete('/:id', deleteResource);
 
 export default router;
