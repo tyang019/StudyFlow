@@ -6,8 +6,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
-    "build": "tsc",
+    "prestart": "npm run build",
+    "prebuild": "npm run check:no-src-js",
     "start": "node dist/index.js",
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "check:no-src-js": "rg --files src -g '*.js' && (echo ERROR: .js files found in src && exit 1) || echo OK: No JS found",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
