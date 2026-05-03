@@ -1,24 +1,31 @@
-export default function TaskCard({ task }: any) {
-  return (
-    <div className="group bg-white border border-zinc-200 rounded-xl p-4 transition hover:shadow-sm hover:border-zinc-300">
-      <div className="flex justify-between items-center">
-        <div>
-          <p className="font-medium text-sm group-hover:text-black">
-            {task.title}
-          </p>
-          <p className="text-xs text-zinc-500 mt-1">{task.type}</p>
-        </div>
+import { useState } from "react";
 
-        <span
-          className={`text-xs px-2 py-1 rounded-full border ${
-            task.completed
-              ? "bg-emerald-50 text-emerald-600 border-emerald-200"
-              : "bg-amber-50 text-amber-600 border-amber-200"
-          }`}
+export default function TaskCard({ task, onUpdate }: any) {
+  const [editing, setEditing] = useState(false);
+  const [title, setTitle] = useState(task.title);
+  const [command, setCommand] = useState("");
+
+  return (
+    <div className="bg-white border border-zinc-200 rounded-xl p-4 hover:shadow-sm transition">
+      {editing ? (
+        <input
+          className="w-full text-sm border rounded px-2 py-1"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          onBlur={() => {
+            setEditing(false);
+            onUpdate({ ...task, title });
+          }}
+          autoFocus
+        />
+      ) : (
+        <p
+          className="text-sm font-medium cursor-text"
+          onClick={() => setEditing(true)}
         >
-          {task.completed ? "Done" : "In progress"}
-        </span>
-      </div>
+          {task.title}
+        </p>
+      )}
     </div>
   );
 }
