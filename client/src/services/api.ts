@@ -23,4 +23,10 @@ export const getResources = () =>
   API.get("/resources").then((res) => res.data);
 
 export const createResource = (data: any) =>
-  API.post("/resources", data).then((res) => res.data);
+   API.post("/resources", data).then((res) => res.data);
+
+export const updateResource = (id: number, data: any) =>
+  API.put(`/resources/${id}`, data).then((res) => res.data);
+
+export const deleteResource = (id: number) =>
+  API.delete(`/resources/${id}`).then((res) => res.data);
