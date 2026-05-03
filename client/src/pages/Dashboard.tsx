@@ -87,35 +87,35 @@ export default function Dashboard() {
             </div>
           </div>
             <div className="flex gap-2 mb-6">
-            <input
-              className="flex-1 border border-zinc-200 rounded-xl px-4 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-zinc-200"
-              placeholder="Write a new task..."
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") add();
-              }}
-            />
+              <input
+                className="flex-1 border border-zinc-200 rounded-xl px-4 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-zinc-200"
+                placeholder="Write a new task..."
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") add();
+                }}
+                />
 
-            <button
-              onClick={add}
-              className="bg-black text-white text-sm px-4 rounded-xl hover:bg-zinc-800 transition"
-            >
-              Add
-            </button>
-          </div>
-                <div className="space-y-3">
-            {tasks.map((t) => (
-              <TaskCard
-                key={t.id}
-                task={t}
-                onUpdate={updateTask}
-                onDelete={removeTask}
-              />
-            ))}
+                <button
+                  onClick={add}
+                  className="bg-black text-white text-sm px-4 rounded-xl hover:bg-zinc-800 transition"
+                >
+                  Add
+                </button>
+              </div>
+              <div className="space-y-3">
+              {tasks.map((t) => (
+                <TaskCard
+                  key={t.id}
+                  task={t}
+                  onUpdate={updateTask}
+                  onDelete={removeTask}
+                />
+              ))}
+              </div>
             </div>
-            </div>
           </div>
-           </div>
+        </div>
     );
     }

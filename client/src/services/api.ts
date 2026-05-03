@@ -19,11 +19,18 @@ export const login = (data: any) =>
 export const register = (data: any) =>
   API.post("/auth/register", data).then((res) => res.data);
 
-export const getResources = () =>
-  API.get("/resources").then((res) => res.data);
+export type ResourceFilters = {
+  completed?: "true" | "false";
+  type?: string;
+  q?: string;
+  sort?: "title_asc" | "title_desc";
+};
+
+export const getResources = (filters: ResourceFilters = {}) =>
+  API.get("/resources", { params: filters }).then((res) => res.data);
 
 export const createResource = (data: any) =>
-   API.post("/resources", data).then((res) => res.data);
+  API.post("/resources", data).then((res) => res.data);
 
 export const updateResource = (id: number, data: any) =>
   API.put(`/resources/${id}`, data).then((res) => res.data);
