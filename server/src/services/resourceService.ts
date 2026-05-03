@@ -2,11 +2,33 @@ import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-/* GET ALL (user-scoped) */
-export const getAll = async (userId: number) => {
-  return prisma.resource.findMany({
-    where: { userId },
-  });
+export type ResourceQuery = {
+  completed?: boolean;
+  type?: string;
+  q?: string;
+  sort?: 'title_asc' | 'title_desc';
+};
+
+/* GET ALL (user-scoped + filterable) */
+export const getAll = async (userId: number, query: ResourceQuery = {}) => {
+  const where: Prisma.ResourceWhereInput = {
+    userId,
+    ...(typeof query.completed === 'boolean' ? { completed: query.completed } : {}),
+    ...(query.type ? { type: query.type } : {}),
+    ...(query.q
+      ? {
+          title: {
+            contains: query.q,
+            mode: 'insensitive',
+          },
+        }
+      : {}),
+  };
+
+  const orderBy: Prisma.ResourceOrderByWithRelationInput =
+    query.sort === 'title_desc' ? { title: 'desc' } : { title: 'asc' };
+
+  return prisma.resource.findMany({ where, orderBy });
 };
 
 /* CREATE */

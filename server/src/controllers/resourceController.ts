@@ -3,7 +3,17 @@ import * as service from '../services/resourceService';
 import { AuthRequest } from '../middleware/authMiddleware';
 
 export const getResources = async (req: AuthRequest, res: Response) => {
-  const data = await service.getAll(req.userId!);
+  const completedParam = req.query.completed;
+  const completed =
+    completedParam === 'true' ? true : completedParam === 'false' ? false : undefined;
+
+  const type = typeof req.query.type === 'string' ? req.query.type : undefined;
+  const q = typeof req.query.q === 'string' ? req.query.q : undefined;
+
+  const sortParam = req.query.sort;
+  const sort = sortParam === 'title_desc' ? 'title_desc' : 'title_asc';
+
+  const data = await service.getAll(req.userId!, { completed, type, q, sort });
   res.json(data);
 };
 
