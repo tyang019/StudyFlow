@@ -9,15 +9,16 @@ type Props = {
   onUpdate: (task: Task) => void;
   onDelete: (id: number) => void;
 };
+
 export default function TaskCard({ task, onUpdate, onDelete }: Props) {
   return (
      <div className="bg-white border border-zinc-200 rounded-xl p-4 hover:shadow-sm transition flex items-center justify-between gap-3">
       <div className="flex items-center gap-3 min-w-0">
          <input
             type="checkbox"
-          checked={task.completed}
-          onChange={(e) => onUpdate({ ...task, completed: e.target.checked })}
-          className="h-4 w-4"
+            checked={task.completed}
+            onChange={(e) => onUpdate({ ...task, completed: e.target.checked })}
+            className="h-4 w-4"
         />
         
         <div className="min-w-0">

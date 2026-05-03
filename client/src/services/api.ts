@@ -1,10 +1,28 @@
 import axios from "axios";
 
+type AuthPayload = {
+  email: string;
+  password: string;
+};
+
+export type Resource = {
+  id: number;
+  title: string;
+  type: string;
+  completed: boolean;
+  userId?: number;
+};
+
+export type ResourceInput = {
+  title: string;
+  type: string;
+  completed: boolean;
+};
+
 const API = axios.create({
   baseURL: "http://localhost:5000/api",
 });
 
-// attach token automatically
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -13,10 +31,10 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-export const login = (data: any) =>
+export const login = (data: AuthPayload) =>
   API.post("/auth/login", data).then((res) => res.data);
 
-export const register = (data: any) =>
+export const register = (data: AuthPayload) =>
   API.post("/auth/register", data).then((res) => res.data);
 
 export type ResourceFilters = {
@@ -27,12 +45,12 @@ export type ResourceFilters = {
 };
 
 export const getResources = (filters: ResourceFilters = {}) =>
-  API.get("/resources", { params: filters }).then((res) => res.data);
+  API.get<Resource[]>("/resources", { params: filters }).then((res) => res.data);
 
-export const createResource = (data: any) =>
-  API.post("/resources", data).then((res) => res.data);
+export const createResource = (data: ResourceInput) =>
+  API.post<Resource>("/resources", data).then((res) => res.data);
 
-export const updateResource = (id: number, data: any) =>
+export const updateResource = (id: number, data: Partial<ResourceInput>) =>
   API.put(`/resources/${id}`, data).then((res) => res.data);
 
 export const deleteResource = (id: number) =>

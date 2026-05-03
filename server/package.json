@@ -5,11 +5,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "prestart": "npm run build",
     "prebuild": "npm run check:no-src-js",
     "start": "node dist/index.js",
-    "clean": "rimraf dist",
+    "clean": "rm -rf dist",
     "build": "npm run clean && tsc",
-    "check:no-src-js": "rg --files src -g '*.js' && (echo ERROR: .js files found in src && exit 1) || echo OK: No JS found",
+    "check:no-src-js": "if rg --files src -g '*.js' | grep -q .; then echo 'ERROR: .js files found in src'; rg --files src -g '*.js'; exit 1; else echo 'OK: No JS found'; fi",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
