@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { AxiosError } from "axios";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import TaskCard from "../components/TaskCard";
@@ -11,10 +12,22 @@ import {
   type ResourceFilters,
 } from "../services/api";
 
+
 type StatusFilter = "all" | "completed" | "active";
 type SortFilter = "title_asc" | "title_desc";
 
 const PAGE_SIZE = 8;
+
+const getErrorMessage = (error: unknown, fallback: string) => {
+  const axiosError = error as AxiosError<{ error?: string; message?: string }>;
+  const serverMessage = axiosError.response?.data?.error || axiosError.response?.data?.message;
+
+  if (axiosError.response?.status === 401) {
+    return "Your session expired. Please sign in again.";
+  }
+
+  return serverMessage || fallback;
+};
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState<Resource[]>([]);
@@ -65,36 +78,37 @@ export default function Dashboard() {
   );
 
   const load = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const data = await getResources(filters);
-      setTasks(data);
-    } catch {
-      setError("Failed to load tasks. Please refresh and try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [filters]);
+  setIsLoading(true);
+  setError(null);
+  try {
+    const data = await getResources(filters);
+    setTasks(data);
+  } catch (error) {
+    setError(getErrorMessage(error, "Failed to load tasks. Please refresh and try again."));
+  } finally {
+    setIsLoading(false);
+  }
+}, [filters]);
 
   const add = async () => {
-      const cleanTitle = title.trim();
-    if (!cleanTitle) return;
+  const cleanTitle = title.trim();
+  if (!cleanTitle) return;
 
-    setError(null);
-    try {
-      await createResource({
-        title: cleanTitle,
-        type: "course",
-        completed: false,
-      });
-        setTitle("");
-      setPage(1);
-      await load();
-    } catch {
-      setError("Could not add task.");
-    }
-  };
+  setError(null);
+  try {
+    await createResource({
+      title: cleanTitle,
+      type: "course",
+      completed: false,
+    });
+
+    setTitle("");
+    setPage(1);
+    await load();
+  } catch (error) {
+    setError(getErrorMessage(error, "Could not add task."));
+  }
+};
 
   const updateTask = async (task: Resource) => {
     setBusyTaskId(task.id);
@@ -106,12 +120,12 @@ export default function Dashboard() {
         completed: task.completed,
       });
        await load();
-    } catch {
-      setError("Could not update task.");
-    } finally {
-      setBusyTaskId(null);
-    }
-  };
+      } catch (error) {
+        setError(getErrorMessage(error, "Could not update task."));
+      } finally {
+        setBusyTaskId(null);
+      }
+    };
 
   const removeTask = async (id: number) => {
     setBusyTaskId(id);
@@ -119,12 +133,11 @@ export default function Dashboard() {
     try {
       await deleteResource(id);
       await load();
-    } catch {
-      setError("Could not delete task.");
+    } catch (error) {
+      setError(getErrorMessage(error, "Could not delete task."));
     } finally {
       setBusyTaskId(null);
     }
-  };
 
   useEffect(() => {
      const timer = setTimeout(() => {
@@ -139,7 +152,7 @@ export default function Dashboard() {
   const pagedTasks = tasks.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   return (
-      <div className="min-h-screen bg-zinc-50 flex">
+    <div className="min-h-screen bg-zinc-50 flex">
       <Sidebar />
 
       <div className="flex-1">
@@ -279,3 +292,4 @@ export default function Dashboard() {
     </div>
     );
     }
+  }
