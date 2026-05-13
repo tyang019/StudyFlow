@@ -3,6 +3,7 @@ import type { AxiosError } from "axios";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import TaskCard from "../components/TaskCard";
+
 import {
   getResources,
   createResource,
@@ -138,6 +139,7 @@ export default function Dashboard() {
     } finally {
       setBusyTaskId(null);
     }
+  };
 
   useEffect(() => {
      const timer = setTimeout(() => {
@@ -291,5 +293,4 @@ export default function Dashboard() {
       </div>
     </div>
     );
-    }
   }
