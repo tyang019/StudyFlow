@@ -22,7 +22,9 @@ export default function ProfileDropdown() {
           <button className="block w-full text-left px-3 py-2 hover:bg-zinc-100 hover:cursor-pointer">
             Account
           </button>
-
+          <button className="block w-full text-left px-3 py-2 hover:bg-zinc-100 hover:cursor-pointer">
+            Courses
+        </button>
           <button
             onClick={logout}
             className="block w-full text-left px-3 py-2 hover:bg-zinc-100 text-red-500 hover:cursor-pointer"
