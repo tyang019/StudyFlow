@@ -5,6 +5,14 @@ type AuthPayload = {
   password: string;
 };
 
+export type AuthResponse = {
+  user: {
+    id: number;
+    email: string;
+  };
+  token: string;
+};
+
 export type Resource = {
   id: number;
   title: string;
@@ -19,8 +27,9 @@ export type ResourceInput = {
   completed: boolean;
 };
 
+
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:5000/api",
 });
 
 API.interceptors.request.use((config) => {
@@ -41,11 +50,19 @@ API.interceptors.response.use(
   }
 );
 
+export const getApiErrorMessage = (error: unknown, fallback: string) => {
+  if (axios.isAxiosError<{ error?: string; message?: string }>(error)) {
+    return error.response?.data?.error || error.response?.data?.message || fallback;
+  }
+
+  return fallback;
+};
+
 export const login = (data: AuthPayload) =>
-  API.post("/auth/login", data).then((res) => res.data);
+  API.post<AuthResponse>("/auth/login", data).then((res) => res.data);
 
 export const register = (data: AuthPayload) =>
-  API.post("/auth/register", data).then((res) => res.data);
+  API.post<AuthResponse>("/auth/register", data).then((res) => res.data);
 
 export type ResourceFilters = {
   completed?: "true" | "false";

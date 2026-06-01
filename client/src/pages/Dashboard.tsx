@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AxiosError } from "axios";
 import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
 import TaskCard from "../components/TaskCard";
 
 import {
@@ -158,7 +157,6 @@ export default function Dashboard() {
       <Sidebar />
 
       <div className="flex-1">
-        <Navbar />
 
         <div className="max-w-5xl mx-auto px-6 py-10">
           <h1 className="text-2xl font-semibold mb-6">Dashboard</h1>

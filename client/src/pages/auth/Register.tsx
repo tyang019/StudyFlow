@@ -34,7 +34,7 @@ export default function Register() {
 
         <button
           onClick={register}
-          className="w-full bg-blue-500 text-white p-2 rounded text-sm cursor-pointer hover:bg-blue-600 transition"
+          className="w-full bg-black text-white p-2 rounded text-sm cursor-pointer hover:bg-blue-600 transition"
         >
           Register
         </button>
