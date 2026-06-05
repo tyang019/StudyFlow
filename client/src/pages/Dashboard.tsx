@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AxiosError } from "axios";
 import Sidebar from "../components/Sidebar";
 import TaskCard from "../components/TaskCard";
+import NavBar from "../components/Navbar";
 
 import {
   getResources,

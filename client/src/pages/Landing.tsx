@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import ProfileDropdown from "../components/ProfileDropdown";
+import StudyPerson from "../assets/book-open-reader-solid-full.svg";
 
 const features = [
   {
@@ -37,15 +39,54 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-950">
+      {/* <header className="border-b border-zinc-200 bg-white/80 backdrop-blur">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <Link to="/" className="flex items-center gap-2" aria-label="StudyFlow home">
+            <img src={StudyPerson} alt="book icon" className="w-4 h-4" />
+            <span className="text-sm font-semibold tracking-tight">StudyFlow</span>
+          </Link>
+          <input placeholder="Search..." className="bg-gray-100 border-none rounded-xl w-64 p-1.5 focus:outline-none" />
+          <div className="flex items-center gap-4 mx-right">
+             <button><a href="/features" className="px-4 py-1 text-gray-700 hover:bg-zinc-200 transition rounded-xl mx-auto">
+              Features
+            </a></button>
+            <button><a href="/tech-stack" className="px-4 py-1 text-gray-700 hover:bg-zinc-200 transition rounded-xl">
+                Tech Stack
+            </a></button>
+          </div>
+         
+          <div className="flex items-center gap-3 text-sm">
+            {hasToken ? (
+              <>
+                <Link className="text-zinc-600 hover:text-zinc-950" to="/dashboard">
+                  Dashboard
+                </Link>
+                <ProfileDropdown />
+              </>
+            ) : (
+              <>
+                <Link className="text-zinc-600 hover:text-zinc-950" to="/login">
+                  Sign In
+                </Link>
+                <Link
+                  className="rounded-xl bg-black px-4 py-2 font-medium text-white transition hover:bg-zinc-800"
+                  to="/register"
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
+          </div>
+        </nav>
+      </header> */}
+
       <main>
         <section className="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:py-24">
           <div>
             <div className="mb-5 inline-flex rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-600 shadow-sm">
               Learning Progress Dashboard
             </div>
-          <img>
-          
-          </img>
+
             <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl lg:text-6xl">
               Track your learning progress with clarity.
             </h1>
