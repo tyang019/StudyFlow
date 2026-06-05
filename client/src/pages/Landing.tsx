@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import ProfileDropdown from "../components/ProfileDropdown";
-import StudyPerson from "../assets/book-open-reader-solid-full.svg";
 
 const features = [
   {
