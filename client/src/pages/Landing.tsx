@@ -54,12 +54,6 @@ export default function Landing() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link className="text-zinc-600 hover:text-zinc-950" to="/features">
-                Features
-              </Link>
-              <Link className="text-zinc-600 hover:text-zinc-950" to="/tech-stack">
-                Tech Stack
-              </Link>
               <Link
                 className="rounded-xl bg-black px-5 py-3 text-center text-sm font-medium text-white transition hover:bg-zinc-800"
                 to={hasToken ? "/dashboard" : "/register"}
