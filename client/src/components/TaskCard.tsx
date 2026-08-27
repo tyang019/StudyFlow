@@ -6,23 +6,28 @@ type Task = {
   type: string;
   completed: boolean;
 };
-type Props = {
+
+type TaskProps = {
   task: Task;
   isBusy?: boolean;
   onUpdate: (task: Task) => void;
   onDelete: (id: number) => void;
 };
 
-export default function TaskCard({ task, isBusy = false, onUpdate, onDelete }: Props) {
+export default function TaskCard({ task, isBusy = false, onUpdate, onDelete }: TaskProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [draftTitle, setDraftTitle] = useState(task.title);
+
+  const cancelEditing = () => {
+    setDraftTitle(task.title);
+    setIsEditing(false);
+  };
 
   const saveTitle = async () => {
     const nextTitle = draftTitle.trim();
 
     if (!nextTitle || nextTitle === task.title) {
-      setIsEditing(false);
-      setDraftTitle(task.title);
+      cancelEditing();
       return;
     }
 
@@ -31,8 +36,8 @@ export default function TaskCard({ task, isBusy = false, onUpdate, onDelete }: P
   };
 
   return (
-    <div className="bg-white border border-zinc-200 rounded-xl p-4 hover:shadow-sm transition flex items-center justify-between gap-3">
-      <div className="flex items-center gap-3 min-w-0 flex-1">
+    <div className="flex items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-white p-4 transition hover:shadow-sm">
+      <div className="flex min-w-0 flex-1 items-center gap-3">
         <input
           type="checkbox"
           checked={task.completed}
@@ -45,7 +50,7 @@ export default function TaskCard({ task, isBusy = false, onUpdate, onDelete }: P
           {isEditing ? (
             <div className="flex items-center gap-2">
               <input
-                className="w-full border border-zinc-200 rounded-lg px-2 py-1 text-sm"
+                className="w-full rounded-lg border border-zinc-200 px-2 py-1 text-sm"
                 value={draftTitle}
                 onChange={(e) => setDraftTitle(e.target.value)}
                 onKeyDown={(e) => {
@@ -53,8 +58,7 @@ export default function TaskCard({ task, isBusy = false, onUpdate, onDelete }: P
                     void saveTitle();
                   }
                   if (e.key === "Escape") {
-                    setDraftTitle(task.title);
-                    setIsEditing(false);
+                    cancelEditing();
                   }
                 }}
                 autoFocus
@@ -65,7 +69,9 @@ export default function TaskCard({ task, isBusy = false, onUpdate, onDelete }: P
             </div>
           ) : (
             <p
-              className={`text-sm font-medium truncate cursor-text ${task.completed ? "line-through text-zinc-400" : ""}`}
+              className={`cursor-text truncate text-sm font-medium ${
+                task.completed ? "text-zinc-400 line-through" : ""
+              }`}
               onDoubleClick={() => setIsEditing(true)}
               title="Double-click to edit"
             >

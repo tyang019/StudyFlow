@@ -25,14 +25,14 @@ type Technology = {
   icon: LucideIcon;
 };
 
-type TechnologyCategory = {
+type Category = {
   id: string;
   title: string;
   description: string;
   technologies: Technology[];
 };
 
-const technologyCategories: TechnologyCategory[] = [
+const categories: Category[] = [
   {
     id: "frontend",
     title: "Frontend",
@@ -169,8 +169,8 @@ const technologyCategories: TechnologyCategory[] = [
 export default function TechStack() {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-950">
-      <main>
-        <section className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <main className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+        <header>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
             Architecture and tools
           </p>
@@ -181,20 +181,17 @@ export default function TechStack() {
             Every technology below has a specific role in the current repository, from rendering the
             interface to protecting and persisting user-owned resources.
           </p>
-        </section>
+        </header>
 
-        <div className="mx-auto max-w-6xl space-y-14 px-6 pb-16">
-          {technologyCategories.map((category) => (
-            <section key={category.id} aria-labelledby={`${category.id}-title`}>
-              <div className="max-w-2xl">
-                <h2
-                  id={`${category.id}-title`}
-                  className="text-2xl font-semibold tracking-tight"
-                >
-                  {category.title}
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">{category.description}</p>
-              </div>
+        <div className="space-y-14 pb-16">
+          {categories.map((category) => (
+            <section key={category.id} aria-labelledby={category.id}>
+              <h2 id={category.id} className="text-2xl font-semibold tracking-tight">
+                {category.title}
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+                {category.description}
+              </p>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {category.technologies.map((technology) => (
@@ -211,7 +208,6 @@ export default function TechStack() {
             </section>
           ))}
         </div>
-
       </main>
     </div>
   );

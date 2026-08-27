@@ -13,13 +13,13 @@ import {
 } from "lucide-react";
 import InfoCard from "../components/InfoCard";
 
-type StudyFlowFeature = {
+type Feature = {
   title: string;
   description: string;
   icon: LucideIcon;
 };
 
-const features: StudyFlowFeature[] = [
+const features: Feature[] = [
   {
     title: "User registration",
     description:
@@ -84,10 +84,9 @@ const features: StudyFlowFeature[] = [
 
 export default function Features() {
   return (
-     <div className="min-h-screen bg-zinc-50 text-zinc-950">
-
-      <main>
-        <section className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <div className="min-h-screen bg-zinc-50 text-zinc-950">
+      <main className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+        <header>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
             Product capabilities
           </p>
@@ -98,9 +97,9 @@ export default function Features() {
             StudyFlow combines account-based access, persistent resources, and practical dashboard tools
             so learners can organize work without losing focus.
           </p>
-        </section>
+        </header>
 
-        <section aria-labelledby="feature-grid-title" className="mx-auto max-w-6xl px-6 pb-16">
+        <section aria-labelledby="feature-grid-title" className="pb-16">
           <h2 id="feature-grid-title" className="sr-only">
             StudyFlow features
           </h2>
@@ -111,8 +110,7 @@ export default function Features() {
           </div>
         </section>
 
-        <div className="border-t border-zinc-200 bg-white">
-          <section className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+        <section className="-mx-6 border-t border-zinc-200 bg-white px-6 py-16 sm:py-20">
             <h2 className="text-2xl font-semibold tracking-tight">
               Ready to put the workflow into practice?
             </h2>
@@ -133,8 +131,7 @@ export default function Features() {
                 Log in
               </a>
             </div>
-          </section>
-        </div>
+        </section>
       </main>
     </div>
   );

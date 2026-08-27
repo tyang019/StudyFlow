@@ -19,12 +19,6 @@ export default function PublicPageCta({ title, description }: PublicPageCtaProps
         >
           {hasToken ? "Open Dashboard" : "Create Account"}
         </Link>
-        <Link
-          className="rounded-xl border border-zinc-300 bg-white px-5 py-3 text-sm font-medium text-zinc-800 transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2"
-          to="/"
-        >
-          Back to StudyFlow
-        </Link>
       </div>
     </section>
   );

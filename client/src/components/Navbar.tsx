@@ -43,17 +43,6 @@ export default function Navbar() {
               </>
             )}
           </div>
-          {/* <div className="flex items-center gap-3 text-sm">
-            <Link className="text-zinc-600 hover:bg-zinc-200 px-3 py-1 transition rounded-xl" to="/login">
-              Sign In
-            </Link>
-            <Link
-              className="rounded-xl bg-black px-4 py-2 font-medium text-white transition hover:bg-zinc-800"
-              to={hasToken ? "/dashboard" : "/register"}
-            >
-              {hasToken ? "Open Dashboard" : "Get Started"}
-            </Link>
-          </div> */}
         </nav>
       </header>
   );
