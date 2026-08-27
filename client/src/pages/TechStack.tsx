@@ -169,8 +169,6 @@ const technologyCategories: TechnologyCategory[] = [
 export default function TechStack() {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-950">
-
-
       <main>
         <section className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">

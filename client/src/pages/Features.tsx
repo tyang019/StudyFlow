@@ -82,26 +82,6 @@ const features: StudyFlowFeature[] = [
   },
 ];
 
-function PublicHeader() {
-  return (
-    <header className="border-b border-zinc-200 bg-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="/" className="text-lg font-semibold tracking-tight">
-          StudyFlow
-        </a>
-        <nav className="flex items-center gap-4 text-sm text-zinc-600">
-          <a href="/features" className="hover:text-zinc-950">
-            Features
-          </a>
-          <a href="/login" className="hover:text-zinc-950">
-            Log in
-          </a>
-        </nav>
-      </div>
-    </header>
-  );
-}
-
 export default function Features() {
   return (
      <div className="min-h-screen bg-zinc-50 text-zinc-950">
