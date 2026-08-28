@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import { Request, Response, NextFunction } from "express";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export interface AuthRequest extends Request {
   userId?: number;
@@ -15,21 +15,41 @@ export const protect = (
   next: NextFunction
 ) => {
   const authorization = req.headers.authorization;
-  if (!authorization?.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Authentication required' });
+
+  if (!authorization?.startsWith("Bearer ")) {
+    return res.status(401).json({
+      error: "Authentication required",
+    });
   }
-  const token = authorization.slice('Bearer '.length).trim();
+
+  const token = authorization
+    .slice("Bearer ".length)
+    .trim();
+
   if (!token) {
-    return res.status(401).json({ error: 'Authentication required' });
+    return res.status(401).json({
+      error: "Authentication required",
+    });
   }
+
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as StudyFlowJwtPayload;
-     if (typeof decoded.userId !== 'number') {
-      return res.status(401).json({ error: 'Invalid token' });
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    ) as StudyFlowJwtPayload;
+
+    if (typeof decoded.userId !== "number") {
+      return res.status(401).json({
+        error: "Invalid token",
+      });
     }
 
     req.userId = decoded.userId;
-    } catch {
-    return res.status(401).json({ error: 'Invalid or expired token' });
+
+    next();
+  } catch {
+    return res.status(401).json({
+      error: "Invalid or expired token",
+    });
   }
 };

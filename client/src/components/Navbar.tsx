@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import StudyPerson from "../assets/book-open-reader-solid-full.svg";
 import ProfileDropdown from "./ProfileDropdown";
 
 export default function Navbar() {
+  useLocation();
   const hasToken = Boolean(localStorage.getItem("token"));
   return (
    <header className="border-b border-zinc-200 bg-white/80 backdrop-blur">
