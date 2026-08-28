@@ -72,8 +72,7 @@ export default function Landing() {
           <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <p className="text-xs uppercase tracking-wide text-zinc-400">Progress</p>
-                <p className="text-3xl font-semibold">67%</p>
+                <p className="text-3xl font-semibold">Dashboard</p>
               </div>
               <div className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600">
                 8 of 12 complete
@@ -86,19 +85,32 @@ export default function Landing() {
                 <p className="mt-1 text-xl font-semibold">12</p>
               </div>
               <div className="rounded-2xl border border-zinc-200 p-3">
-                <p className="text-xs text-zinc-500">Done</p>
+                <p className="text-xs text-zinc-500">Complete</p>
                 <p className="mt-1 text-xl font-semibold">8</p>
               </div>
               <div className="rounded-2xl border border-zinc-200 p-3">
-                <p className="text-xs text-zinc-500">Active</p>
-                <p className="mt-1 text-xl font-semibold">4</p>
+                <p className="text-xs text-zinc-500">Progress</p>
+                <p className="mt-1 text-xl font-semibold">67%</p>
               </div>
             </div>
 
-            <div className="mb-4 rounded-xl border border-zinc-200 px-3 py-2 text-sm text-zinc-400">
-              Search title...
+            <div className="flex ">
+              <div className="mb-4 rounded-xl border border-zinc-200 px-3 py-2 text-sm text-zinc-400">
+                Write a new task...
+              </div>
+              
+                <div
+                className=" flex rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm">
+                  Options
+              </div>
+              <div
+                className="rounded-xl bg-black px-4 text-sm text-white transition hover:bg-zinc-800"
+              >
+                Add
             </div>
 
+            </div>
+           
             <div className="space-y-3">
               {[
                 ["React Router notes", "Course", true],
