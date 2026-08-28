@@ -11,6 +11,7 @@ import {
   type ResourceFilters,
 } from "../services/api";
 type StatusFilter = "all" | "completed" | "active";
+type TaskType = "course" | "article" | "project";
 type SortFilter = "title_asc" | "title_desc";
 
 const PAGE_SIZE = 8;
@@ -28,16 +29,23 @@ const getErrorMessage = (error: unknown, fallback: string) => {
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState<Resource[]>([]);
+
+  //New Task
   const [title, setTitle] = useState("");
+  const [newTaskType, setNewTaskType] = useState<TaskType>("course");
+
+  //Filters
   const [query, setQuery] = useState("");
-  const [queryInput, setQueryInput] = useState("");
-  const [status, setStatus] = useState<StatusFilter>(() =>
+  const [queryInput] = useState("");
+  const [status] = useState<StatusFilter>(() =>
     (localStorage.getItem("statusFilter") as StatusFilter) || "all"
   );
-  const [taskType, setTaskType] = useState(() => localStorage.getItem("typeFilter") || "all");
-  const [sort, setSort] = useState<SortFilter>(() =>
+  const [taskType] = useState(() => localStorage.getItem("typeFilter") || "all");
+  const [sort] = useState<SortFilter>(() =>
     (localStorage.getItem("sortFilter") as SortFilter) || "title_asc"
   );
+
+  //UI State
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +54,7 @@ export default function Dashboard() {
   const total = tasks.length;
   const completed = tasks.filter((task) => task.completed).length;
   const progress = total ? Math.round((completed / total) * 100) : 0;
-
+  
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -96,7 +104,7 @@ export default function Dashboard() {
     try {
       await createResource({
         title: cleanTitle,
-        type: "course",
+        type: newTaskType,
         completed: false,
       });
 
@@ -139,11 +147,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      void load();
-    }, 0);
-
-    return () => clearTimeout(timer);
+    void load();
   }, [load]);
 
   const totalPages = Math.max(1, Math.ceil(tasks.length / PAGE_SIZE));
@@ -183,57 +187,9 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="mb-4 grid grid-cols-1 gap-2 md:grid-cols-4">
-            <input
-              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm"
-              placeholder="Search title..."
-              value={queryInput}
-              onChange={(e) => setQueryInput(e.target.value)}
-            />
-
-            <select
-              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm"
-              value={status}
-              onChange={(e) => {
-                setStatus(e.target.value as StatusFilter);
-                setPage(1);
-              }}
-            >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="completed">Completed</option>
-            </select>
-
-            <select
-              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm"
-              value={taskType}
-              onChange={(e) => {
-                setTaskType(e.target.value);
-                setPage(1);
-              }}
-            >
-              <option value="all">All Types</option>
-              <option value="course">Course</option>
-              <option value="article">Article</option>
-              <option value="project">Project</option>
-            </select>
-
-            <select
-              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm"
-              value={sort}
-              onChange={(e) => {
-                setSort(e.target.value as SortFilter);
-                setPage(1);
-              }}
-            >
-              <option value="title_asc">Title A → Z</option>
-              <option value="title_desc">Title Z → A</option>
-            </select>
-          </div>
-
           <div className="mb-6 flex gap-2">
             <input
-              className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-200"
+              className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm"
               placeholder="Write a new task..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -243,6 +199,18 @@ export default function Dashboard() {
                 }
               }}
             />
+
+            <select
+              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm"
+              value={newTaskType}
+              onChange={(e) =>
+                setNewTaskType(e.target.value as TaskType)
+              }
+            >
+              <option value="course">Course</option>
+              <option value="article">Article</option>
+              <option value="project">Project</option>
+            </select>
 
             <button
               onClick={() => void addTask()}
