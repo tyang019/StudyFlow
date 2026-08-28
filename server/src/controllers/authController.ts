@@ -1,37 +1,32 @@
 import { Request, Response } from 'express';
-import * as service from '../services/authService';
+import { AuthError, login as loginUser, register as registerUser } from '../services/authService';
 import { generateToken } from '../utils/jwt';
+
+const sendAuthError = (error: unknown, res: Response) => {
+  if (error instanceof AuthError) {
+    return res.status(error.statusCode).json({ error: error.message });
+  }
+
+  console.error('Authentication error:', error);
+  return res.status(500).json({ error: 'Authentication service unavailable' });
+};
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const user = await service.register(req.body.email, req.body.password);
+    const user = await registerUser(req.body.email, req.body.password);
     const token = generateToken(user.id);
-
-    res.status(201).json({ user, token });
-  } catch (error: any) {
-    console.error(error);
-
-    if (error.message === 'User already exists') {
-      return res.status(409).json({
-        error: 'User already exists',
-      });
-    }
-
-    res.status(400).json({ error: 'Registration failed' });
+     return res.status(201).json({ user, token });
+  } catch (error: unknown) {
+    return sendAuthError(error, res);
   }
 };
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const user = await service.login(req.body.email, req.body.password);
-
+     const user = await loginUser(req.body.email, req.body.password);
     const token = generateToken(user.id);
-
-    res.json({
-      user,
-      token,
-    });
-  } catch {
-    res.status(401).json({ error: 'Invalid credentials' });
-  }
+    return res.json({ user, token });
+  } catch (error: unknown) {
+    return sendAuthError(error, res);
+  };
 };

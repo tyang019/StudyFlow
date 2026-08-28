@@ -5,6 +5,11 @@ type AuthPayload = {
   password: string;
 };
 
+const normalizeAuthPayload = ({ email, password }: AuthPayload): AuthPayload => ({
+  email: email.trim().toLowerCase(),
+  password,
+});
+
 export type AuthResponse = {
   user: {
     id: number;
@@ -26,6 +31,7 @@ export type ResourceInput = {
   type: string;
   completed: boolean;
 };
+
 
 
 const API = axios.create({
@@ -59,10 +65,10 @@ export const getApiErrorMessage = (error: unknown, fallback: string) => {
 };
 
 export const login = (data: AuthPayload) =>
-  API.post<AuthResponse>("/auth/login", data).then((res) => res.data);
+  API.post<AuthResponse>("/auth/login", normalizeAuthPayload(data)).then((res) => res.data);
 
 export const register = (data: AuthPayload) =>
-  API.post<AuthResponse>("/auth/register", data).then((res) => res.data);
+  API.post<AuthResponse>("/auth/register", normalizeAuthPayload(data)).then((res) => res.data);
 
 export type ResourceFilters = {
   completed?: "true" | "false";

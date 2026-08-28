@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getApiErrorMessage, login as loginUser } from "../../services/api";
 
@@ -9,11 +9,11 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogin = async () => {
+  const login = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setError(null);
     setIsSubmitting(true);
-
-    try {
+     try {
       const data = await loginUser({ email, password });
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
@@ -25,9 +25,9 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-zinc-50">
-      <div className="w-80 space-y-3 rounded-lg border bg-white p-6">
-        <h1 className="text-center text-lg font-semibold">Login</h1>
+    <div className="h-screen flex items-center justify-center bg-zinc-50">
+      <form onSubmit={(event) => void login(event)} className="w-80 bg-white border p-6 rounded-lg space-y-3">
+        <h1 className="font-semibold text-lg flex items-center justify-center">Login</h1>
 
         {error && (
           <div className="rounded border border-red-200 bg-red-50 p-2 text-sm text-red-700">
@@ -36,40 +36,39 @@ export default function Login() {
         )}
 
         <input
-          className="w-full rounded border p-2 text-sm"
+          aria-label="Email address"
+          autoComplete="email"
+          className="w-full border p-2 rounded text-sm"
           placeholder="Email"
+          required
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
-          className="w-full rounded border p-2 text-sm"
+          aria-label="Password"
+          autoComplete="current-password"
+          className="w-full border p-2 rounded text-sm"
+          minLength={6}
           placeholder="Password"
+          required
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              void handleLogin();
-            }
-          }}
         />
 
         <button
-          onClick={() => void handleLogin()}
+         type="submit"
           disabled={isSubmitting}
-          className="w-full rounded bg-black p-2 text-sm text-white disabled:opacity-60"
+          className="w-full bg-black text-white p-2 rounded text-sm disabled:opacity-60"
         >
           {isSubmitting ? "Signing in..." : "Sign in"}
         </button>
-        <p className="text-center text-xs text-zinc-500">
-          Need an account? {" "}
-          <Link className="text-black underline" to="/register">
-            Register
-          </Link>
+         <p className="text-center text-xs text-zinc-500">
+          Need an account? <Link className="text-black underline" to="/register">Register</Link>
         </p>
-      </div>
+      </form>
     </div>
   );
 }
