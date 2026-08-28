@@ -1,50 +1,97 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  getApiErrorMessage,
+  register as registerUser,
+} from "../../services/api";
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleRegister = async () => {
-    await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+  const register = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    window.location.href = "/login";
+    setError(null);
+    setIsSubmitting(true);
+
+    try {
+      await registerUser({
+        email,
+        password,
+      });
+
+      navigate("/login");
+    } catch (error) {
+      setError(
+        getApiErrorMessage(
+          error,
+          "Unable to create account. Please try again."
+        )
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="flex h-screen items-center justify-center bg-zinc-50">
-      <div className="w-80 space-y-3 rounded-lg border bg-white p-6">
-        <h1 className="text-center text-lg font-semibold">Create account</h1>
+      <form
+        onSubmit={(event) => void register(event)}
+        className="w-80 space-y-3 rounded-lg border bg-white p-6"
+      >
+        <h1 className="text-center text-lg font-semibold">
+          Create account
+        </h1>
+
+        {error && (
+          <div className="rounded border border-red-200 bg-red-50 p-2 text-sm text-red-700">
+            {error}
+          </div>
+        )}
 
         <input
+          aria-label="Email address"
+          autoComplete="email"
           className="w-full rounded border p-2 text-sm"
           placeholder="Email"
+          required
+          type="email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
+          aria-label="Password"
+          autoComplete="new-password"
           className="w-full rounded border p-2 text-sm"
+          minLength={6}
           placeholder="Password"
+          required
           type="password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
         <button
-          onClick={() => void handleRegister()}
-          className="w-full cursor-pointer rounded bg-black p-2 text-sm text-white transition hover:bg-blue-600"
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full cursor-pointer rounded bg-black p-2 text-sm text-white transition hover:bg-blue-600 disabled:opacity-60"
         >
-          Register
+          {isSubmitting ? "Creating account..." : "Register"}
         </button>
-        <p>
-          Already have an account? {" "}
-          <a href="/login" className="text-blue-500">
+
+        <p className="text-center text-xs text-zinc-500">
+          Already have an account?{" "}
+          <Link className="text-black underline" to="/login">
             Login
-          </a>
+          </Link>
         </p>
-      </div>
+      </form>
     </div>
   );
 }
