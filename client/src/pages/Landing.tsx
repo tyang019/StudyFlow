@@ -1,21 +1,45 @@
+import {
+  BookOpenCheck,
+  FilePenLine,
+  Search,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import InfoCard from "../components/InfoCard";
+import PublicPageCta from "../components/PublicPageCta";
+import dashboardScreenshot from "../assets/dashboard.png";
 
-export const features = [
+type FeatureSummary = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+const features: FeatureSummary[] = [
   {
     title: "Track resources",
-    description: "Add courses, articles, and projects into one focused workspace for your learning plan.",
+    description:
+      "Add courses, articles, and projects into one focused workspace for your learning plan.",
+    icon: BookOpenCheck,
   },
   {
     title: "Search and filter",
-    description: "Find the right item quickly with debounced search, status filters, type filters, and sorting.",
+    description:
+      "Find the right item quickly with debounced search, status filters, type filters, and sorting.",
+    icon: Search,
   },
   {
     title: "Edit in place",
-    description: "Update titles, mark resources complete, and remove items without leaving the dashboard.",
+    description:
+      "Update titles, mark resources complete, and remove items without leaving the dashboard.",
+    icon: FilePenLine,
   },
   {
     title: "Private dashboard",
-    description: "JWT-based sessions and user-scoped resources keep each learner's workspace separate.",
+    description:
+      "JWT-based sessions and user-scoped resources keep each learner's workspace separate.",
+    icon: ShieldCheck,
   },
 ];
 
@@ -36,121 +60,126 @@ export default function Landing() {
   const hasToken = Boolean(localStorage.getItem("token"));
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-950">
+    <div className="min-h-screen overflow-hidden bg-white text-zinc-950">
+
       <main>
-        <section className="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:py-24">
-          <div>
-            <div className="mb-5 inline-flex rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-600 shadow-sm">
-              Learning Progress Dashboard
-            </div>
+        <section className="relative isolate border-b border-zinc-200 bg-zinc-50">
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_20%_20%,rgba(196,181,253,0.28),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(186,230,253,0.32),transparent_32%)]"
+          />
 
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl lg:text-6xl">
-              Track your learning progress with clarity.
-            </h1>
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 opacity-40 [background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)] [background-size:48px_48px] [mask-image:linear-gradient(to_bottom,black,transparent_72%)]"
+          />
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg">
-              StudyFlow helps you organize courses, articles, and projects with searchable resources,
-              progress tracking, inline editing, and a responsive dashboard built for focused learning.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                className="rounded-xl bg-black px-5 py-3 text-center text-sm font-medium text-white transition hover:bg-zinc-800"
-                to={hasToken ? "/dashboard" : "/register"}
-              >
-                {hasToken ? "Open Dashboard" : "Get Started"}
-              </Link>
-              <Link
-                className="rounded-xl border border-zinc-300 bg-white px-5 py-3 text-center text-sm font-medium text-zinc-800 transition hover:bg-zinc-100"
-                to="/login"
-              >
-                Sign In
-              </Link>
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <div className="mb-5 flex items-center justify-between">
-              <div>
-                <p className="text-3xl font-semibold">Dashboard</p>
+          <div className="mx-auto grid max-w-7xl gap-14 px-6 pb-20 pt-16 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:gap-12 lg:pb-28 lg:pt-24">
+            <div className="relative z-10">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-3 py-1 text-xs font-medium text-zinc-600 shadow-sm backdrop-blur">
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 rounded-full bg-emerald-500"
+                />
+                Learning Progress Dashboard
               </div>
-              <div className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600">
-                8 of 12 complete
-              </div>
-            </div>
 
-            <div className="mb-5 grid grid-cols-3 gap-3 text-sm">
-              <div className="rounded-2xl border border-zinc-200 p-3">
-                <p className="text-xs text-zinc-500">Total</p>
-                <p className="mt-1 text-xl font-semibold">12</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-3">
-                <p className="text-xs text-zinc-500">Complete</p>
-                <p className="mt-1 text-xl font-semibold">8</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-3">
-                <p className="text-xs text-zinc-500">Progress</p>
-                <p className="mt-1 text-xl font-semibold">67%</p>
+              <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.035em] text-zinc-950 sm:text-5xl lg:text-6xl">
+                Track your learning progress with clarity.
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg">
+                StudyFlow helps you organize courses, articles, and projects
+                with searchable resources, progress tracking, inline editing,
+                and a responsive dashboard built for focused learning.
+              </p>
+
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  className="rounded-xl bg-black px-5 py-3 text-center text-sm font-medium text-white shadow-lg shadow-zinc-950/10 transition hover:-translate-y-0.5 hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2"
+                  to={hasToken ? "/dashboard" : "/register"}
+                >
+                  {hasToken ? "Open Dashboard" : "Get Started"}
+                </Link>
+
+                <Link
+                  className="rounded-xl border border-zinc-300 bg-white/90 px-5 py-3 text-center text-sm font-medium text-zinc-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2"
+                  to={hasToken ? "/features" : "/login"}
+                >
+                  {hasToken ? "Explore Features" : "Sign In"}
+                </Link>
               </div>
             </div>
 
-            <div className="flex ">
-              <div className="mb-4 rounded-xl border border-zinc-200 px-3 py-2 text-sm text-zinc-400">
-                Write a new task...
-              </div>
-              
-                <div
-                className=" flex rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm">
-                  Options
-              </div>
+            <figure className="relative mx-auto w-full max-w-3xl lg:-mr-28 lg:max-w-none">
               <div
-                className="rounded-xl bg-black px-4 text-sm text-white transition hover:bg-zinc-800"
-              >
-                Add
-            </div>
+                aria-hidden="true"
+                className="absolute -inset-8 -z-10 rounded-[2.5rem] bg-gradient-to-br from-violet-200/60 via-sky-100/30 to-transparent blur-2xl"
+              />
 
-            </div>
-           
-            <div className="space-y-3">
-              {[
-                ["React Router notes", "Course", true],
-                ["Prisma auth cleanup", "Project", false],
-                ["Tailwind dashboard polish", "Article", true],
-              ].map(([title, type, done]) => (
-                <div key={String(title)} className="flex items-center justify-between rounded-2xl border border-zinc-200 p-3">
-                  <div className="flex items-center gap-3">
-                    <span className={`h-4 w-4 rounded border ${done ? "border-black bg-black" : "border-zinc-300"}`} />
-                    <div>
-                      <p className={`text-sm font-medium ${done ? "text-zinc-400 line-through" : "text-zinc-900"}`}>
-                        {title}
-                      </p>
-                      <p className="text-xs uppercase text-zinc-500">{type}</p>
-                    </div>
+              <div className="overflow-hidden rounded-2xl border border-zinc-300/80 bg-white shadow-[0_30px_80px_-28px_rgba(24,24,27,0.38)] ring-1 ring-black/5 sm:rounded-3xl">
+                <div className="flex h-10 items-center border-b border-zinc-200 bg-zinc-100/90 px-4 sm:h-12">
+                  <div aria-hidden="true" className="flex gap-1.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                   </div>
-                  <span className="text-xs text-zinc-400">Edit</span>
+
+                  <div className="mx-auto flex h-6 w-1/2 items-center justify-center rounded-md border border-zinc-200 bg-white text-[9px] text-zinc-400 sm:h-7 sm:text-[10px]">
+                    app.studyflow.dev/dashboard
+                  </div>
+
+                  <div aria-hidden="true" className="w-[50px]" />
                 </div>
-              ))}
-            </div>
+
+                <img
+                  src={dashboardScreenshot}
+                  alt="StudyFlow dashboard with learning statistics, search and filter controls, and a list of tracked resources"
+                  className="block h-auto w-full"
+                  width="1440"
+                  height="900"
+                />
+              </div>
+            </figure>
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 pb-16">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <section className="relative mx-auto max-w-6xl px-6 py-20 sm:py-24">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+              Built for focus
+            </p>
+
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+              Everything you need to keep learning moving.
+            </h2>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 [&>article]:transition [&>article]:duration-200 [&>article]:hover:-translate-y-1 [&>article]:hover:shadow-lg">
             {features.map((feature) => (
-              <article key={feature.title} className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-                <h2 className="text-sm font-semibold">{feature.title}</h2>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">{feature.description}</p>
-              </article>
+              <InfoCard key={feature.title} {...feature} />
             ))}
           </div>
         </section>
 
-        <section className="border-y border-zinc-200 bg-white">
-          <div className="mx-auto max-w-6xl px-6 py-12">
-            <p className="text-sm font-semibold text-zinc-950">Built with modern frontend tools</p>
-            <div className="mt-5 flex flex-wrap gap-2">
+        <section className="border-y border-zinc-200 bg-zinc-950 text-white">
+          <div className="mx-auto grid max-w-6xl gap-8 px-6 py-14 md:grid-cols-[0.7fr_1.3fr] md:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
+                Under the hood
+              </p>
+
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight">
+                Built with modern frontend tools
+              </h2>
+            </div>
+
+            <div className="flex flex-wrap gap-2 md:justify-end">
               {stack.map((item) => (
-                <span key={item} className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600">
+                <span
+                  key={item}
+                  className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-zinc-300 backdrop-blur"
+                >
                   {item}
                 </span>
               ))}
@@ -158,18 +187,12 @@ export default function Landing() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-4xl px-6 py-16 text-center">
-          <h2 className="text-2xl font-semibold tracking-tight">Ready to organize your learning?</h2>
-          <p className="mt-3 text-sm leading-6 text-zinc-600">
-            Create an account and start tracking your study resources today.
-          </p>
-          <Link
-            className="mt-6 inline-flex rounded-xl bg-black px-5 py-3 text-sm font-medium text-white transition hover:bg-zinc-800"
-            to={hasToken ? "/dashboard" : "/register"}
-          >
-            {hasToken ? "Open Dashboard" : "Create Account"}
-          </Link>
-        </section>
+        <div className="bg-[radial-gradient(circle_at_50%_0%,rgba(212,212,216,0.34),transparent_55%)]">
+          <PublicPageCta
+            title="Ready to organize your learning?"
+            description="Create an account and start tracking your study resources today."
+          />
+        </div>
       </main>
     </div>
   );

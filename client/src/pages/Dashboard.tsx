@@ -146,9 +146,13 @@ export default function Dashboard() {
     }
   };
 
-  useEffect(() => {
+useEffect(() => {
+  const timer = window.setTimeout(() => {
     void load();
-  }, [load]);
+  }, 0);
+
+  return () => window.clearTimeout(timer);
+}, [load]);
 
   const totalPages = Math.max(1, Math.ceil(tasks.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
