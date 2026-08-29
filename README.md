@@ -1,93 +1,203 @@
 # StudyFlow
-
-StudyFlow is a full-stack learning progress dashboard for organizing study resources, tracking completion, and managing courses, articles, and projects through a responsive React interface.
+StudyFlow is a full-stack learning progress dashboard for organizing courses, articles, and projects, tracking completion, and managing personal learning resources through a responsive React interface.
 
 ## Live Demo
 
-Frontend: <study-flow-edu-track.vercel.app>
-Backend API: <https://studyflow-api-y3d0.onrender.com>
+**Frontend:** https://study-flow-edu-track.vercel.app
+
+**Backend API:** https://studyflow-api-y3d0.onrender.com
+
+> The backend is hosted on Render and may take a few seconds to respond after a period of inactivity.
 
 ## Features
 
-- Public landing page
-- User authentication
+- Modern public landing page with dashboard preview
+- User registration and login
+- JWT-based authentication
 - Protected dashboard route
-- User-scoped resource CRUD
-- Search, filter, and sort resources
-- Pagination
-- Inline editing
-- Completion toggles
+- User-scoped resource management
+- Create courses, articles, and projects
+- Edit resource titles inline
+- Mark resources as completed or active
+- Delete resources
+- Completion and progress statistics
+- Client-side pagination
 - Loading and error states
-- Responsive UI
+- Responsive user interface
+- Dedicated Features and Tech Stack pages
 
 ## Tech Stack
 
-Frontend:
+### Frontend
+
 - React
 - TypeScript
 - React Router
 - Tailwind CSS
 - Axios
 - Vite
+- Lucide React
 
-Backend:
+### Backend
+
 - Node.js
 - Express
-- Prisma
+- TypeScript
+- Prisma ORM
 - PostgreSQL
-- JWT
+- JSON Web Tokens
 - bcrypt
 
-## Screenshots
+### Testing and Code Quality
 
-Add screenshots here.
+- Vitest
+- React Testing Library
+- ESLint
+
+### Deployment
+
+- Vercel — frontend
+- Render — backend API
+- PostgreSQL — persistent application data
+
+## Screenshot
+
+![StudyFlow Dashboard](client/src/assets/dashboard.png)
 
 ## Project Structure
 
-client/
-server/
+```text
+StudyFlow/
+├── client/
+│   ├── public/
+│   └── src/
+│       ├── assets/
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       └── test/
+│
+├── server/
+│   ├── prisma/
+│   │   └── schema.prisma
+│   └── src/
+│       ├── controllers/
+│       ├── middleware/
+│       ├── routes/
+│       ├── services/
+│       ├── utils/
+│       └── index.ts
+│
+├── docs/
+│   └── API.md
+│
+├── README.md
+└── vercel.json
+```
 
 ## Local Setup
 
-### 1. Clone the repo
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/tyang019/StudyFlow.git
+cd StudyFlow
+```
 
 ### 2. Install frontend dependencies
 
+```bash
 cd client
 npm install
+```
 
 ### 3. Install backend dependencies
 
-cd server
+```bash
+cd ../server
 npm install
+```
 
 ### 4. Configure environment variables
 
-client/.env
-VITE_API_URL=http://localhost:5000/api
+Create a `client/.env` file:
 
-server/.env
-DATABASE_URL=...
-JWT_SECRET=...
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Create a `server/.env` file:
+
+```env
+DATABASE_URL=your_postgresql_connection_string
+JWT_SECRET=your_jwt_secret
+```
 
 ### 5. Run the backend
 
-cd server
+From the `server` directory:
+
+```bash
 npm run dev
+```
+
+The backend runs locally at:
+
+```text
+http://localhost:5000
+```
 
 ### 6. Run the frontend
 
-cd client
+From the `client` directory:
+
+```bash
 npm run dev
+```
+
+Vite will display the local frontend URL, typically:
+
+```text
+http://localhost:5173
+```
+
+## Testing
+
+Run frontend tests:
+
+```bash
+cd client
+npm run test:run
+```
+
+Run ESLint:
+
+```bash
+npm run lint
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
 
 ## API Documentation
 
-See docs/API.md.
+See [`docs/API.md`](docs/API.md) for authentication and resource endpoint documentation.
+
+Production API base URL:
+
+```text
+https://studyflow-api-y3d0.onrender.com/api
+```
 
 ## Future Improvements
 
-- Add frontend tests
-- Add backend tests
-- Add CI/CD with GitHub Actions
-- Deploy backend API
-- Add demo account
+- Expand frontend test coverage
+- Add backend API tests
+- Add GitHub Actions CI/CD
+- Add stricter API request validation
+- Add server-side pagination
+- Improve backend error handling
+- Add a demo account
