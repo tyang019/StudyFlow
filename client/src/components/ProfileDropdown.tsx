@@ -18,7 +18,7 @@ export default function ProfileDropdown() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-sm text-sm">
+        <div className="absolute right-0 z-50 mt-2 w-40 rounded-xl border border-zinc-200 bg-white py-1 text-sm shadow-lg">
           <button className="block w-full text-left px-3 py-2 hover:bg-zinc-100 hover:cursor-pointer">
             Account
           </button>
