@@ -1,5 +1,5 @@
 # StudyFlow
-StudyFlow is a full-stack learning progress dashboard for organizing courses, articles, and projects, tracking completion, and managing personal learning resources through a responsive React interface.
+StudyFlow is a full-stack web app I built to organize courses, articles, and projects in one dashboard. Users can create an account, track learning resources, mark items complete, edit them, and view overall progress.
 
 ## Live Demo
 
@@ -194,10 +194,8 @@ https://studyflow-api-y3d0.onrender.com/api
 
 ## Future Improvements
 
-- Expand frontend test coverage
-- Add backend API tests
-- Add GitHub Actions CI/CD
-- Add stricter API request validation
-- Add server-side pagination
-- Improve backend error handling
+- Add more frontend tests
+- Add backend tests
+- Add GitHub Actions
+- Improve API validation and error handling
 - Add a demo account
