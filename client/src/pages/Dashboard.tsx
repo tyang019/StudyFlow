@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { AxiosError } from "axios";
 import Sidebar from "../components/Sidebar";
 import TaskCard from "../components/TaskCard";
@@ -8,11 +8,8 @@ import {
   updateResource,
   deleteResource,
   type Resource,
-  type ResourceFilters,
 } from "../services/api";
-type StatusFilter = "all" | "completed" | "active";
 type TaskType = "course" | "article" | "project";
-type SortFilter = "title_asc" | "title_desc";
 
 const PAGE_SIZE = 8;
 
@@ -33,17 +30,7 @@ export default function Dashboard() {
   //New Task
   const [title, setTitle] = useState("");
   const [newTaskType, setNewTaskType] = useState<TaskType>("course");
-
-  //Filters
-  const [query, setQuery] = useState("");
-  const [queryInput] = useState("");
-  const [status] = useState<StatusFilter>(() =>
-    (localStorage.getItem("statusFilter") as StatusFilter) || "all"
-  );
-  const [taskType] = useState(() => localStorage.getItem("typeFilter") || "all");
-  const [sort] = useState<SortFilter>(() =>
-    (localStorage.getItem("sortFilter") as SortFilter) || "title_asc"
-  );
+ 
 
   //UI State
   const [page, setPage] = useState(1);
@@ -56,45 +43,24 @@ export default function Dashboard() {
   const progress = total ? Math.round((completed / total) * 100) : 0;
   
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setQuery(queryInput);
-      setPage(1);
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [queryInput]);
-
-  useEffect(() => {
-    localStorage.setItem("statusFilter", status);
-    localStorage.setItem("typeFilter", taskType);
-    localStorage.setItem("sortFilter", sort);
-  }, [status, taskType, sort]);
-
-  const filters = useMemo<ResourceFilters>(
-    () => ({
-      ...(query.trim() ? { q: query.trim() } : {}),
-      ...(status === "completed" ? { completed: "true" } : {}),
-      ...(status === "active" ? { completed: "false" } : {}),
-      ...(taskType !== "all" ? { type: taskType } : {}),
-      sort,
-    }),
-    [query, sort, status, taskType]
-  );
-
   const load = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
+  setIsLoading(true);
+  setError(null);
 
-    try {
-      const data = await getResources(filters);
-      setTasks(data);
-    } catch (error) {
-      setError(getErrorMessage(error, "Failed to load tasks. Please refresh and try again."));
-    } finally {
-      setIsLoading(false);
-    }
-  }, [filters]);
+  try {
+    const data = await getResources();
+    setTasks(data);
+  } catch (error) {
+    setError(
+      getErrorMessage(
+        error,
+        "Failed to load tasks. Please refresh and try again."
+      )
+    );
+  } finally {
+    setIsLoading(false);
+  }
+}, []);
 
   const addTask = async () => {
     const cleanTitle = title.trim();
