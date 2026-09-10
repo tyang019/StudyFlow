@@ -111,7 +111,7 @@ export default function Landing() {
               </div>
             </div>
 
-            <figure className="relative mx-auto w-full max-w-3xl lg:-mr-28 lg:max-w-none">
+            <figure className="relative mx-auto w-full max-w-3xl lg:max-w-none">
               <div
                 aria-hidden="true"
                 className="absolute -inset-8 -z-10 rounded-[2.5rem] bg-gradient-to-br from-violet-200/60 via-sky-100/30 to-transparent blur-2xl"
@@ -136,8 +136,8 @@ export default function Landing() {
                   src={dashboardScreenshot}
                   alt="StudyFlow dashboard with learning statistics, search and filter controls, and a list of tracked resources"
                   className="block h-auto w-full"
-                  width="1440"
-                  height="900"
+                  width="1403"
+                  height="1002"
                 />
               </div>
             </figure>
@@ -151,7 +151,7 @@ export default function Landing() {
             </p>
 
             <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Everything you need to keep learning moving.
+              Ideas flowing, progress showing. Everything you need to keep learning. 
             </h2>
           </div>
 
