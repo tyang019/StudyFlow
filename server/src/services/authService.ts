@@ -1,7 +1,7 @@
-import { Prisma, PrismaClient, User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
-const prisma = new PrismaClient();
+import { prisma } from '../db/prisma';
 
 export type SafeUser = Pick<User, 'id' | 'email'>;
 
