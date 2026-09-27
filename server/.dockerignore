@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.*
+.git
+.gitignore
+npm-debug.log*
+// This file specifies which files and directories should be ignored by Docker when building the image.
+// It ensures that unnecessary files are not included in the Docker image, reducing its size and improving build efficiency.
+// This file is particularly useful in multi-stage Docker builds to prevent the build context from becoming too large and to exclude development-only files from the final image.
+// This file helps to maintain a clean and optimized Docker build context, especially in projects with many development-only files or large dependencies.
+// This prevents local dependencies, build output, Git files, and especially secrets from being copied into the Docker build context, ensuring that only necessary files are included in the final image.
+// It helps to prevent accidental inclusion of sensitive or unnecessary files in the Docker image, enhancing both security and build performance.
