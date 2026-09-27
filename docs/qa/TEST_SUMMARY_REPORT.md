@@ -116,18 +116,28 @@ Additional automated coverage will be added as QA testing progresses.
 Postman
 
 **Endpoints Tested:**
-| Operation | Status | Result
-- POST /auth/register | 201 | Passed 
-- POST /auth/login | 200 | Passed 
-- GET /resources | 200 | Passed 
-- POST /resources | 201 | Passed 
-- PUT /resources/:id | 200 | Passed 
-- DELETE /resources/:id | 200 | Passed 
+
+| Operation | Status | Result |
+|---|---:|---|
+| POST /auth/register | 201 | Passed |
+| POST /auth/login | 200 | Passed |
+| GET /resources | 200 | Passed |
+| POST /resources | 201 | Passed |
+| PUT /resources/:id | 200 | Passed |
+| DELETE /resources/:id | 200 | Passed | 
 
 **Result:**
 
 Six of six REST API operations returned the expected responses.
 
+**Start Date:**
+September 27, 2026
+
+**End Date:**
+September 27, 2026
+
+**Environment:**
+Windows 11 / Postman / Docker Compose / Local API
 ---
 
 ## 10. Known Risks / Remaining Testing
