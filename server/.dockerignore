@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+.env.*
+.git
+.gitignore
+npm-debug.log*
+
+# Exclude local dependencies, build output, Git metadata,
+# logs, and environment files from the Docker build context.
