@@ -138,8 +138,7 @@ Pass
 
 ### Actual Result
 
-Entered ".../dashboard" in the localhost URL and dashboard is not displayed. 
-User is redirected to login portal page. 
+While logged out, navigated directly to the local dashboard URL. The protected dashboard did not appear, and the application redirected to the login page.
 
 ### Status
 
@@ -168,10 +167,9 @@ Pass
 
 ### Actual Result
 
-Login request was rejected when an unregistered email address and a
-random password were submitted.
-
-Application displayed the red error message
+The login request was rejected when an unregistered email address and a
+random password were submitted. The application displayed a red error
+message, but the exact message text was not recorded.
 
 ### Status 
 
@@ -193,12 +191,10 @@ Pass
 ### Test Data
 
 Email:
-Use a new test email address.
-qa2.studyflow@example.com
+Use a new test email address for each run.
 
 Password:
-Use a valid password meeting application requirements.
-Valid test password
+Use a valid test password meeting the application's requirements.
 
 ### Steps
 
