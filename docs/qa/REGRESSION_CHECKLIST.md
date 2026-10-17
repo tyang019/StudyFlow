@@ -117,7 +117,7 @@ Tortrong Yang
 
 # Regression Result
 
-**Overall Status:**
+**Overall Status:** Not run
 
 - [ ] Pass
 - [ ] Fail
@@ -125,8 +125,8 @@ Tortrong Yang
 
 ## Failed Checks
 
-None.
+Not evaluated. No regression run has been recorded for this checklist.
 
 ## Notes
 
-None.
+Complete this section after executing the checklist. Record the test date, build/commit, environment, results, and any failures before marking the overall status.
