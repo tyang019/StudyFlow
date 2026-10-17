@@ -6,11 +6,13 @@
 **Tester:** Tortrong Yang  
 **Test Cycle:** Initial QA cycle  
 **Manual test dates:** Not fully recorded  
-**API test date recorded in existing notes:** September 27, 2026
+**Recorded Postman API test date:** September 27, 2026  
+**Frontend checks recorded:** October 16, 2026
 
 **Environments recorded:**
 - Manual application checks: Windows 11 / Google Chrome
 - API checks: Windows 11 / Postman / Docker Compose / local API
+- Frontend tests, lint, and build: local `client` project on Windows PowerShell
 
 This report summarizes the results currently recorded in the QA documents. It does not represent a completed test cycle for every StudyFlow feature.
 
@@ -74,34 +76,44 @@ The existing QA notes record six API operations as passing on September 27, 2026
 
 These results reflect the local Vitest run recorded on October 16, 2026. They cover the three test cases listed above, not every frontend feature.
 
+## 6. Lint and Production Build Checks
+
+**Executed:** October 16, 2026, from the `client` directory.
+
+| Check | Command | Recorded result |
+|---|---|---|
+| ESLint | `npm run lint` | Passed; command returned without reported lint errors |
+| TypeScript and production build | `npm run build` | Passed; `tsc -b` completed and Vite built the production bundle |
+
+The recorded production build used Vite 8.0.10 and transformed 1,805 modules. These are local checks; they are not evidence of a successful remote CI workflow or a deployment test.
+
 The backend package currently has a placeholder `npm test` script rather than a backend automated test suite. The six API operations in Section 4 are manual Postman checks recorded in the existing QA notes.
 
-## 6. Defects
+## 7. Defects
 
 No individual defect reports are currently entered in `DEFECT_REPORTS.md`; that file contains a defect-report template. This means defects have not been documented there, not that the application is proven defect-free.
 
 When a defect is found, record its reproduction steps, expected and actual results, severity, evidence, fix, and retest result.
 
-## 7. Regression Testing
+## 8. Regression Testing
 
 **Completed:** No regression run is recorded.  
 **Result:** Not yet executed.
 
 The checklist in `REGRESSION_CHECKLIST.md` remains available for documenting a future run. Do not mark checks complete until each one has actually been performed.
 
-## 8. Remaining Work
+## 9. Remaining Work
 
 - Execute and record the 12 manual test cases currently marked Not Run.
 - Add explicit test cases for user ownership/access control and unauthorized API requests, then record their results.
-- Run the three frontend automated tests and record the result and date.
 - Add backend automated tests when practical.
 - Perform and document a regression run after relevant fixes or changes.
 - Record any discovered defects and retest outcomes.
 
-## 9. Overall Assessment
+## 10. Overall Assessment
 
 **QA status: In progress.**
 
-The documented results show five passing manual authentication cases, six API operations recorded as passing in Postman notes, and three passing frontend automated tests from the October 16, 2026 local run. However, 12 defined manual cases remain unrun, and regression testing has not been documented as completed.
+The documented results show five passing manual authentication cases, six API operations recorded as passing in Postman notes, three passing frontend automated tests, a successful local lint check, and a successful local TypeScript/production build. However, 12 defined manual cases remain unrun, backend automated tests are not implemented, and regression testing has not been documented as completed.
 
 **Recommendation: Additional testing required.**
