@@ -2,174 +2,104 @@
 
 ## 1. Test Cycle
 
-**Project:**
-StudyFlow Learning Progress Dashboard
+**Project:** StudyFlow Learning Progress Dashboard  
+**Tester:** Tortrong Yang  
+**Test Cycle:** Initial QA cycle  
+**Manual test dates:** Not fully recorded  
+**API test date recorded in existing notes:** September 27, 2026
 
-**Tester:**
-Tortrong Yang
+**Environments recorded:**
+- Manual application checks: Windows 11 / Google Chrome
+- API checks: Windows 11 / Postman / Docker Compose / local API
 
-**Test Cycle:**
-Initial QA Test Cycle
+This report summarizes the results currently recorded in the QA documents. It does not represent a completed test cycle for every StudyFlow feature.
 
-**Start Date:**
+## 2. Planned Testing Scope
 
-**End Date:**
+The test plan covers:
 
-**Environment:**
-Windows 11 / Google Chrome
+- Registration, login, and protected routes
+- Resource create, read, update, and delete workflows
+- Completion tracking, search, filtering, and sorting
+- User-specific data access and authorization
+- API request and response behavior
+- Responsive UI checks
+- Selected frontend component tests
+- Regression checks after changes
 
----
+A feature appearing in the planned scope does not mean it has already been tested.
 
-## 2. Testing Scope
+## 3. Manual Test Case Results
 
-This test cycle evaluated the following StudyFlow functionality:
-
-- Authentication
-- Protected routes
-- Resource CRUD operations
-- Completion tracking
-- Search
-- Filtering
-- Sorting
-- User access control
-- API behavior
-- Responsive UI behavior
-
----
-
-## 3. Testing Performed
-
-The following testing methods were used:
-
-- Manual functional testing
-- Negative testing
-- UI testing
-- API testing
-- Automated testing
-- Regression testing
-
----
-
-## 4. Manual Test Results
+The current `MANUAL_TEST_CASES.md` contains 17 defined test cases. Their recorded status is:
 
 | Result | Count |
 |---|---:|
-| Passed | 0 |
+| Passed | 5 |
 | Failed | 0 |
 | Blocked | 0 |
-| Not Run | 0 |
-| Total | 0 |
+| Not Run | 12 |
+| **Total defined cases** | **17** |
 
----
+The five passing cases are the authentication cases `TC-AUTH-001` through `TC-AUTH-005`. The 12 cases still marked **Not Run** cover resource management, search, filtering, sorting, and desktop/tablet/mobile UI checks.
 
-## 5. Defect Summary
+These counts reflect the statuses written in `MANUAL_TEST_CASES.md`; they do not mean that every planned feature has passed testing. The registration test case records three successful runs.
 
-| Severity | Open | Closed |
-|---|---:|---:|
-| Critical | 0 | 0 |
-| High | 0 | 0 |
-| Medium | 0 | 0 |
-| Low | 0 | 0 |
+## 4. API Testing Recorded in Postman
 
----
+The existing QA notes record six API operations as passing on September 27, 2026:
 
-## 6. Major Defects
+| Operation | Recorded HTTP status | Recorded result |
+|---|---:|---|
+| `POST /auth/register` | 201 | Passed |
+| `POST /auth/login` | 200 | Passed |
+| `GET /resources` | 200 | Passed |
+| `POST /resources` | 201 | Passed |
+| `PUT /resources/:id` | 200 | Passed |
+| `DELETE /resources/:id` | 200 | Passed |
 
-No defects documented yet.
+**Recorded result:** 6 of 6 listed API operations returned the expected responses, according to the existing test notes. Negative API cases and user-to-user resource ownership scenarios still need explicit evidence in the QA records.
 
-When defects are identified, list them here.
+## 5. Automated Frontend Tests
 
-Example:
+The repository contains three Vitest / React Testing Library test cases:
 
-- BUG-001 — Dashboard content overflows mobile viewport
-- BUG-002 — Search results fail to update after resource edit
+| Test file | Behavior checked |
+|---|---|
+| `client/src/pages/Landing.test.tsx` | Landing-page hero and call-to-action links render |
+| `client/src/pages/auth/Login.test.tsx` | Login email and password inputs can be filled |
+| `client/src/components/Taskcard.test.tsx` | Double-clicking a task title enters edit mode |
 
----
+The latest automated test run and its result are **not recorded in this report**. Run `npm run test:run` from the `client` directory and record the date and result before describing these tests as passing.
+
+The backend package currently has a placeholder `npm test` script rather than a backend automated test suite. The recorded API checks above are manual Postman checks.
+
+## 6. Defects
+
+No individual defect reports are currently entered in `DEFECT_REPORTS.md`; that file contains a defect-report template. This means defects have not been documented there, not that the application is proven defect-free.
+
+When a defect is found, record its reproduction steps, expected and actual results, severity, evidence, fix, and retest result.
 
 ## 7. Regression Testing
 
-**Regression Testing Completed:**
-No
+**Completed:** No regression run is recorded.  
+**Result:** Not yet executed.
 
-**Result:**
-Not yet executed.
+The checklist in `REGRESSION_CHECKLIST.md` remains available for documenting a future run. Do not mark checks complete until each one has actually been performed.
 
----
+## 8. Remaining Work
 
-## 8. Automated Testing
+- Execute and record the 12 manual test cases currently marked Not Run.
+- Add explicit test cases for user ownership/access control and unauthorized API requests, then record their results.
+- Run the three frontend automated tests and record the result and date.
+- Add backend automated tests when practical.
+- Perform and document a regression run after relevant fixes or changes.
+- Record any discovered defects and retest outcomes.
 
-Current automated testing uses:
+## 9. Overall Assessment
 
-- Vitest
-- React Testing Library
+**QA status: In progress.**
 
-Automated test coverage currently includes selected login, navigation,
-and task interaction behaviors.
+The documented results show five passing manual authentication cases and six passing API operations recorded in Postman notes. However, 12 defined manual cases remain unrun, the latest frontend automated test result is not recorded here, and regression testing has not been documented as completed.
 
-Additional automated coverage will be added as QA testing progresses.
-
----
-
-## 9. API Testing
-
-**Tool:**
-Postman
-
-**Endpoints Tested:**
-
-| Operation | Status | Result |
-|---|---:|---|
-| POST /auth/register | 201 | Passed |
-| POST /auth/login | 200 | Passed |
-| GET /resources | 200 | Passed |
-| POST /resources | 201 | Passed |
-| PUT /resources/:id | 200 | Passed |
-| DELETE /resources/:id | 200 | Passed | 
-
-**Result:**
-
-Six of six REST API operations returned the expected responses.
-
-**Start Date:**
-September 27, 2026
-
-**End Date:**
-September 27, 2026
-
-**Environment:**
-Windows 11 / Postman / Docker Compose / Local API
----
-
-## 10. Known Risks / Remaining Testing
-
-Testing still required for:
-
-- Additional negative API scenarios
-- Authentication edge cases
-- Combined search and filtering behavior
-- Additional responsive layouts
-- Broader automated regression coverage
-
----
-
-## 11. Overall Quality Assessment
-
-Testing is currently in progress.
-
-A final quality assessment will be provided after planned manual,
-API, UI, automated, and regression tests have been completed.
-
----
-
-## 12. Final Recommendation
-
-Status:
-
-- [ ] Ready for release
-- [ ] Ready with known low-risk defects
-- [ ] Additional testing required
-- [ ] Not recommended for release
-
-Current recommendation:
-
-Additional testing required.
+**Recommendation: Additional testing required.**
