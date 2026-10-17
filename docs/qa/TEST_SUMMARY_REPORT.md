@@ -62,17 +62,19 @@ The existing QA notes record six API operations as passing on September 27, 2026
 
 ## 5. Automated Frontend Tests
 
-The repository contains three Vitest / React Testing Library test cases:
+**Executed:** October 16, 2026  
+**Command:** `npm run test:run` (run from the `client` directory)  
+**Result:** **3 tests passed; 0 failed**, across 3 test files.
 
-| Test file | Behavior checked |
-|---|---|
-| `client/src/pages/Landing.test.tsx` | Landing-page hero and call-to-action links render |
-| `client/src/pages/auth/Login.test.tsx` | Login email and password inputs can be filled |
-| `client/src/components/Taskcard.test.tsx` | Double-clicking a task title enters edit mode |
+| Test file | Behavior checked | Recorded result |
+|---|---|---|
+| `client/src/pages/Landing.test.tsx` | Landing-page hero and call-to-action links render | Passed |
+| `client/src/pages/auth/Login.test.tsx` | Login email and password inputs can be filled | Passed |
+| `client/src/components/Taskcard.test.tsx` | Double-clicking a task title enters edit mode | Passed |
 
-The latest automated test run and its result are **not recorded in this report**. Run `npm run test:run` from the `client` directory and record the date and result before describing these tests as passing.
+These results reflect the local Vitest run recorded on October 16, 2026. They cover the three test cases listed above, not every frontend feature.
 
-The backend package currently has a placeholder `npm test` script rather than a backend automated test suite. The recorded API checks above are manual Postman checks.
+The backend package currently has a placeholder `npm test` script rather than a backend automated test suite. The six API operations in Section 4 are manual Postman checks recorded in the existing QA notes.
 
 ## 6. Defects
 
@@ -100,6 +102,6 @@ The checklist in `REGRESSION_CHECKLIST.md` remains available for documenting a f
 
 **QA status: In progress.**
 
-The documented results show five passing manual authentication cases and six passing API operations recorded in Postman notes. However, 12 defined manual cases remain unrun, the latest frontend automated test result is not recorded here, and regression testing has not been documented as completed.
+The documented results show five passing manual authentication cases, six API operations recorded as passing in Postman notes, and three passing frontend automated tests from the October 16, 2026 local run. However, 12 defined manual cases remain unrun, and regression testing has not been documented as completed.
 
 **Recommendation: Additional testing required.**
